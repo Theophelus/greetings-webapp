@@ -19,20 +19,16 @@ app.use(bodyParser.json());
 
 //configure public for=lder for static files
 app.use(express.static('public'));
-
 //define a GET roiute handler to render home
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('greetings');
 });
-
 //define a POST route handler to handle sumbitted info in the form
 app.post('/greetings', (req, res) => {
     let enteredName = req.body.nameInput;
-    console.log(enteredName);
     let selectLanguage = req.body.whichLanguage;
-    console.log(selectLanguage);
     //define an object with key value pair to store inputs and render that data to home
-    res.render('home',  
+    res.render('greetings',  
     {
         display: greets.setEnteredName(selectLanguage, enteredName),
         count: greets.getEnteredNameCount()
