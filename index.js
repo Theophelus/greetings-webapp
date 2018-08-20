@@ -21,18 +21,23 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 //define a GET roiute handler to render home
 app.get('/', (req, res) => {
-    res.render('greetings');
+    res.render('home');
 });
 //define a POST route handler to handle sumbitted info in the form
 app.post('/greetings', (req, res) => {
     let enteredName = req.body.nameInput;
     let selectLanguage = req.body.whichLanguage;
     //define an object with key value pair to store inputs and render that data to home
-    res.render('greetings',  
+    res.render('home',  
     {
         display: greets.setEnteredName(selectLanguage, enteredName),
         count: greets.getEnteredNameCount()
     });
+});
+
+//define a GET route handler handle greeted users
+app.get('/greetred/:user', (req, res) => {
+
 });
 let PORT = process.env.PORT || 3009;
 app.listen(PORT, function(){
