@@ -35,15 +35,20 @@ app.post('/greetings', (req, res) => {
     });
 });
 //define a POST route handle to record when a name is greeted and increment the counter
-app.post('/greeted/', (req,res) => {
-    let greetedUsers = greet.setEnteredName();
-    res.render('greeted', { greetedUsers });
-});
+// app.post('/greeted/', (req,res) => {
+//     res.render('greeted', {  greetedUsers: greet.setEnteredName()});
+// });
 
 //define a GET route handler handle greeted users
 app.get('/greeted/', (req, res) => {
-    // let users = req.params.user;
-    res.render('greeted');
+
+    let countedNames = {
+        names: greets.getNameMap(),
+    };
+    console.log(countedNames);
+    res.render('greeted',{ 
+        countedNames
+    });
 
 });
 let PORT = process.env.PORT || 3009;

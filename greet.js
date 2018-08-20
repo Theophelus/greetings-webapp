@@ -9,7 +9,7 @@ module.exports = function(initialValue){
   //when the greet button is pressed check if this user was already greeted before
   //by looking if the userName exists in namesGreeted if not increment this counter and update the screen
   var setEnteredName = function( selectedLanguage, name){
-    let language;
+    //define an object to store all the names
     if (name === null || name == '') {
       return 'Please enter a NAME in the text field..!';
     }else if(selectedLanguage){
@@ -46,6 +46,9 @@ module.exports = function(initialValue){
   var getEnteredNameCount = function(){
     return Object.keys(nameMap).length;
   };
+  let getNameMap = function(){
+    return Object.keys(nameMap);
+  };
   var map = function(){
     return nameMap;
   };
@@ -56,6 +59,7 @@ module.exports = function(initialValue){
   return {
     setEnteredName,
     getEnteredNameCount,
+    getNameMap,
     resetData,
     map,
     results: function(){
