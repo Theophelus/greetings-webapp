@@ -1,5 +1,6 @@
 module.exports = function(initialValue){
   var nameMap = {};
+  let greetedNames = [];
   var enteredName = '';
   //Everytime a namae is detacted the count
   if(initialValue){
@@ -9,6 +10,10 @@ module.exports = function(initialValue){
   //when the greet button is pressed check if this user was already greeted before
   //by looking if the userName exists in namesGreeted if not increment this counter and update the screen
   var setEnteredName = function( selectedLanguage, name){
+    greetedNames.push({
+      names: name,
+      
+    });
     //define an object to store all the names
     if (name === null || name == '') {
       return 'Please enter a NAME in the text field..!';
@@ -27,7 +32,7 @@ module.exports = function(initialValue){
     }
     ////////////////////CHECK TYPE OF LANGUAGE SELECTED AN GREET USER/////////////////
       if(language === 'English'){
-        return 'Hello,' + ' ' + name;
+        return 'Hello,' + ' ' + enteredName;
       }
 
       if(language === 'IsiXhosa'){
@@ -35,6 +40,7 @@ module.exports = function(initialValue){
       }
 
       if (language === 'Afrikaans') {
+
         return 'Goeie Dag,' + ' ' + name;
       }
       else{
@@ -46,20 +52,25 @@ module.exports = function(initialValue){
   var getEnteredNameCount = function(){
     return Object.keys(nameMap).length;
   };
-  let getNameMap = function(){
-    return Object.keys(nameMap);
-  };
+  // let getNameMap = function(){
+  //   return Object.keys(nameMap);
+  // };
+  // console.log(nameMap);
   var map = function(){
     return nameMap;
   };
-
+  let getGreetedNames = function(){
+    return greetedNames;
+  };
+  // console.log(getNameMap());
   var resetData = function (){
     return nameMap == {};
   };
   return {
+    getGreetedNames,
     setEnteredName,
     getEnteredNameCount,
-    getNameMap,
+    // getNameMap,
     resetData,
     map,
     results: function(){

@@ -5,9 +5,11 @@
         <h6 style="text-align: center">This route must be able to DISPLAY the number of people who have been greeted</h6>
 
         <div class="display">
-            {{#each countedNames}}
-            {{names}} has been greeted {{counter}} times Display a list of name that have been greeted 
-            {{/each}}
+            <ul>
+                {{#each names}}
+                <li><a href="/count/:users">{{names}}</a> has been greeted.</li>
+                {{/each}}
+            </ul> 
         </div>
     </div>
 </div>
