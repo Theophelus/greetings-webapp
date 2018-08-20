@@ -52,10 +52,6 @@ module.exports = function(initialValue){
   var getEnteredNameCount = function(){
     return Object.keys(nameMap).length;
   };
-  // let getNameMap = function(){
-  //   return Object.keys(nameMap);
-  // };
-  // console.log(nameMap);
   var map = function(){
     return nameMap;
   };
@@ -73,11 +69,5 @@ module.exports = function(initialValue){
     // getNameMap,
     resetData,
     map,
-    results: function(){
-      return {
-        enteredName
-        // count
-      };
-    }
   };
 };

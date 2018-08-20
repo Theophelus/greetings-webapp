@@ -45,15 +45,7 @@ app.get('/greeted/', (req, res) => {
             names: enterName
         });
 
-    }else {
-        return 'Name already there';
     }
-    // let greetedNames = {
-    //     names: greets.getGreetedNames()
-    // };
-    // console.log(greetedNames);
-    
-
 });
 let PORT = process.env.PORT || 3009;
 app.listen(PORT, function () {
