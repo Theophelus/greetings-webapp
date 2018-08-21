@@ -59,7 +59,6 @@ module.exports = function(initialValue){
   let getGreetedNames = function(){
     return greetedNames;
   };
-  // console.log(getNameMap());
   var resetData = function (){
     return nameMap == {};
   };
