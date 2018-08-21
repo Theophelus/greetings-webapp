@@ -10,10 +10,7 @@ module.exports = function(initialValue){
   //when the greet button is pressed check if this user was already greeted before
   //by looking if the userName exists in namesGreeted if not increment this counter and update the screen
   var setEnteredName = function( selectedLanguage, name){
-    greetedNames.push({
-      names: name,
-      
-    });
+    
     //define an object to store all the names
     if (name === null || name == '') {
       return 'Please enter a NAME in the text field..!';
@@ -29,6 +26,10 @@ module.exports = function(initialValue){
       if(nameMap[enteredName]=== undefined){
         //add an entry for the user that was greeted in the Object Map
         nameMap[enteredName] = 0;
+        greetedNames.push({
+          names: name,
+          
+        });
     }
     ////////////////////CHECK TYPE OF LANGUAGE SELECTED AN GREET USER/////////////////
       if(language === 'English'){

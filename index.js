@@ -40,11 +40,11 @@ app.post('/greetings', (req, res) => {
 //define a GET route handler handle greeted users
 app.get('/greeted/', (req, res) => {
     let enterName = greets.getGreetedNames();
-    if(enterName !==''){
+    console.log(enterName);
+    if(enterName !== undefined){
         res.render('greeted', {
             names: enterName
         });
-
     }
 });
 let PORT = process.env.PORT || 3009;
