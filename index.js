@@ -47,6 +47,13 @@ app.get('/greeted/', (req, res) => {
         });
     }
 });
+
+//define a GET route handler to check how many times a user have been greeted
+app.get('/counter/:users', (req, res) => {
+    let users = req.params.users;
+    res.render('counter');
+});
+
 let PORT = process.env.PORT || 3009;
 app.listen(PORT, function () {
     console.log('App starting on port', PORT);

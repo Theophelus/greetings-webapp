@@ -49,6 +49,9 @@ module.exports = function(initialValue){
       }
     }
 };
+
+//define a function to filter through a list of names 
+// //check if a name is being selected if through
   ////////////////////////END TO CHECK IF THE USER EXIST////////////////////////////
   var getEnteredNameCount = function(){
     return Object.keys(nameMap).length;
