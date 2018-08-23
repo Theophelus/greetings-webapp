@@ -1,76 +1,73 @@
-module.exports = function(initialValue){
+module.exports = function (initialValue) {
   var nameMap = {};
   let greetedNames = [];
   var enteredName = '';
   //Everytime a namae is detacted the count
-  if(initialValue){
+  if (initialValue) {
     nameMap = initialValue;
   }
   ///////////////////CHECK IF USER EXISTS IF NOT ADD////////////////////////////
   //when the greet button is pressed check if this user was already greeted before
   //by looking if the userName exists in namesGreeted if not increment this counter and update the screen
-  var setEnteredName = function( selectedLanguage, name){
-    
+  var setEnteredName = function (selectedLanguage, name) {
+
     //define an object to store all the names
     if (name === null || name == '') {
       return 'Please enter a NAME in the text field..!';
-    }else if(selectedLanguage){
-       language = selectedLanguage;
-    }else{
-        return 'Please select one of the languages in one of the radio buttons..!';
+    } else if (selectedLanguage) {
+      language = selectedLanguage;
+    } else {
+      return 'Please select one of the languages in one of the radio buttons..!';
     }
-    
-    
-    if(name !==''){
+    if (name !== '') {
       enteredName = name;
-      if(nameMap[enteredName]=== undefined){
+      if (nameMap[enteredName] === undefined) {
         //add an entry for the user that was greeted in the Object Map
         nameMap[enteredName] = 0;
+        // greetedNames.filter(function(element){});
         greetedNames.push({
-          names: name,
-          
+          names: name
         });
-    }
-    ////////////////////CHECK TYPE OF LANGUAGE SELECTED AN GREET USER/////////////////
-      if(language === 'English'){
+      }
+      ////////////////////CHECK TYPE OF LANGUAGE SELECTED AN GREET USER/////////////////
+      if (language === 'English') {
         return 'Hello,' + ' ' + enteredName;
       }
 
-      if(language === 'IsiXhosa'){
+      if (language === 'IsiXhosa') {
         return 'Molo,' + ' ' + name;
       }
 
       if (language === 'Afrikaans') {
 
         return 'Goeie Dag,' + ' ' + name;
-      }
-      else{
+      } else {
         return '';
       }
     }
-};
-
-//define a function to filter through a list of names 
-// //check if a name is being selected if through
+  };
+  let filterNames = function (user) {
+    return greetedNames.filter(element => element.names == user);
+  };
   ////////////////////////END TO CHECK IF THE USER EXIST////////////////////////////
-  var getEnteredNameCount = function(){
+  var getEnteredNameCount = function () {
     return Object.keys(nameMap).length;
   };
-  var map = function(){
+  var map = function () {
     return nameMap;
   };
-  let getGreetedNames = function(){
+  let getGreetedNames = function () {
     return greetedNames;
   };
-  var resetData = function (){
+  var resetData = function () {
     return nameMap == {};
   };
   return {
     getGreetedNames,
     setEnteredName,
     getEnteredNameCount,
-    // getNameMap,
+    // filterNames,
     resetData,
-    map,
+    map
   };
 };

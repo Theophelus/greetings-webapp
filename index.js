@@ -3,7 +3,14 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const Greetings = require('./greet');
 const bodyParser = require('body-parser');
+const pg = require("pg");
+const Pool = pg.Pool;
 
+//define a connection string to be able to connect to the database.
+const connectionString = process.env.DATABASE_URL || 'coder:pg123@postgresql://localhost:5432/greetings';
+const pool = new Pool({
+    connectionString
+});
 //define instances
 let app = express();
 let greets = Greetings();
@@ -40,20 +47,20 @@ app.post('/greetings', (req, res) => {
 //define a GET route handler handle greeted users
 app.get('/greeted/', (req, res) => {
     let enterName = greets.getGreetedNames();
-    console.log(enterName);
-    if(enterName !== undefined){
+    if (enterName !== undefined) {
         res.render('greeted', {
             names: enterName
         });
     }
 });
-
 //define a GET route handler to check how many times a user have been greeted
 app.get('/counter/:users', (req, res) => {
     let users = req.params.users;
-    res.render('counter');
+    res.render('counter',
+        greets.filterNames(users)
+    );
+    console.log(greets.filterNames());
 });
-
 let PORT = process.env.PORT || 3009;
 app.listen(PORT, function () {
     console.log('App starting on port', PORT);

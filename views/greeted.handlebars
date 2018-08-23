@@ -7,9 +7,12 @@
         <div class="display">
             <ul>
                 {{#each names}}
-                <li><a href="/count/:users">{{names}}</a> has been greeted.</li>
+                <li><a href="/counter/:users">{{names}}</a> has been greeted.</li>
+                {{!-- <li><a href="/counter/:users">{{@key}}</a> has been greeted.</li> --}}
+                {{!-- @key is used to print every property inside an Object --}}
+
                 {{/each}}
-            </ul> 
+            </ul>
         </div>
     </div>
 </div>
