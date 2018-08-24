@@ -6,14 +6,31 @@ const bodyParser = require('body-parser');
 const pg = require("pg");
 const Pool = pg.Pool;
 
-//define a connection string to be able to connect to the database.
-const connectionString = process.env.DATABASE_URL || 'coder:pg123@postgresql://localhost:5432/greetings';
-const pool = new Pool({
-    connectionString
-});
 //define instances
 let app = express();
 let greets = Greetings();
+
+// should we use a SSL connection
+let useSSL = false;
+
+let local = process.env.LOCAL || false;
+if (process.env.DATABASE_URL && !local){
+    useSSL = true;
+}
+
+//define a connection string to be able to connect to the database.
+const connectionString = process.env.DATABASE_URL || 'coder:pg123@postgresql://localhost:5432/greetings';
+const pool = new Pool({
+    connectionString,
+    ssl : useSSL
+});
+app.use(session({
+    secret: 'keyboard cat5 run all 0v3r',
+    resave: false,
+    saveUninitialized: true
+}));
+
+
 
 //configure express handlebars
 app.engine('handlebars', exphbs({
