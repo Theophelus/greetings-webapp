@@ -33,7 +33,7 @@ module.exports = function (pool) {
       checkUsersSQL = await pool.query('select * from users where user_name=$1', [enteredName]);
       if (checkUsersSQL.rowCount === 0) {
         //if user then insert it to the DB using the insert query
-        await pool.query('insert into users(user_name, user_count) values ($1, $2)', [enteredName, 1]);
+        await pool.query('insert into users(user_name, user_count) values ($1, $2)', [enteredName, 0]);
       }
       await pool.query('update users set user_count = user_count + 1  where user_name = $1', [enteredName]);
 
@@ -53,9 +53,6 @@ module.exports = function (pool) {
       }
     }
   };
-  // let filterNames = function (user) {
-  //   return greetedNames.filter(element => element.enteredName == user);
-  // };
   ////////////////////////END TO CHECK IF THE USER EXIST////////////////////////////
   var getGreetedNames = async function () {
     //define a varible to store a query to count users in the table
@@ -66,13 +63,10 @@ module.exports = function (pool) {
     let greetedNamesSQL = await pool.query('select user_name from users');
     return greetedNamesSQL.rows;
   };
-  let getNameCounter = async function () {
-    
-    return nameMap;
+  let getNameCounter = async function (users) {
+    let namesCountedSQL = await pool.query('select user_name, user_count from users where user_name = $1', [users]);
+    return namesCountedSQL.rows[0];
   };
-  // var resetData = function () {
-  //   return nameMap == {};
-  // };
   return {
     getGreetedNames,
     setEnteredName,
@@ -81,6 +75,17 @@ module.exports = function (pool) {
      // NameCount,
     // filterNames,
     // resetData,
+
+
+
+
+
+
+
     // map
   };
 };
+
+
+
+

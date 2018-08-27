@@ -59,21 +59,27 @@ app.post('/greetings', async (req, res, next) => {
 //define a GET route handler handle greeted users
 app.get('/greeted/', async (req, res, next) => {
     try {
-        // let displayNames = { names: await greets.returnGreetedNames()};
-        console.log(await greets.returnGreetedNames());
-        res.render('greeted', { user_name: await greets.returnGreetedNames()});
+        res.render('greeted', {
+            user_name: await greets.returnGreetedNames()
+        });
     } catch (error) {
         next(error.stack);
     }
 });
 // //define a GET route handler to check how many times a user have been greeted
-app.get('/counter/:users', async (req, res) => {
-    let users = await req.params.users;
-    res.render('counter',
-        greets.filterNames(users)
-    );
-    console.log(greets.filterNames());
+app.get('/counter/:user_name', async (req, res, next) => {
+    let user = req.params.user_name;
+    console.log(user);
+    console.log(await greets.getNameCounter(user));
+    try {
+        res.render('counter', await greets.getNameCounter(user));
+    } catch (error) {
+        next(error.stack);
+    }
+
 });
+
+
 let PORT = process.env.PORT || 3009;
 app.listen(PORT, function () {
     console.log('App starting on port', PORT);
