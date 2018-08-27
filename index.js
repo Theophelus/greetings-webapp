@@ -69,7 +69,6 @@ app.get('/greeted/', async (req, res, next) => {
 // //define a GET route handler to check how many times a user have been greeted
 app.get('/counter/:user_name', async (req, res, next) => {
     let user = req.params.user_name;
-    console.log(user);
     console.log(await greets.getNameCounter(user));
     try {
         res.render('counter', await greets.getNameCounter(user));
