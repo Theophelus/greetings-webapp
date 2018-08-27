@@ -47,34 +47,33 @@ app.get('/', (req, res) => {
 //define a POST route handler to handle sumbitted info in the form
 app.post('/greetings', async (req, res, next) => {
     try {
-        // let enteredName = req.body.nameInput;
-        // let selectLanguage = req.body.whichLanguage;
         //define an object with key value pair to store inputs and render that data to home
         res.render('home', {
             display: await greets.setEnteredName(req.body.whichLanguage, req.body.nameInput),
-            counter: await greets.getEnteredNameCount()
+            counter: await greets.getGreetedNames()
         });
     } catch (error) {
         next(error.stack);
     }
 });
 //define a GET route handler handle greeted users
-// app.get('/greeted/', (req, res) => {
-//     let enterName = greets.getGreetedNames();
-//     if (enterName !== undefined) {
-//         res.render('greeted', {
-//             names: enterName
-//         });
-//     }
-// });
+app.get('/greeted/', async (req, res, next) => {
+    try {
+        // let displayNames = { names: await greets.returnGreetedNames()};
+        console.log(await greets.returnGreetedNames());
+        res.render('greeted', { user_name: await greets.returnGreetedNames()});
+    } catch (error) {
+        next(error.stack);
+    }
+});
 // //define a GET route handler to check how many times a user have been greeted
-// app.get('/counter/:users', (req, res) => {
-//     let users = req.params.users;
-//     res.render('counter',
-//         greets.filterNames(users)
-//     );
-//     console.log(greets.filterNames());
-// });
+app.get('/counter/:users', async (req, res) => {
+    let users = await req.params.users;
+    res.render('counter',
+        greets.filterNames(users)
+    );
+    console.log(greets.filterNames());
+});
 let PORT = process.env.PORT || 3009;
 app.listen(PORT, function () {
     console.log('App starting on port', PORT);

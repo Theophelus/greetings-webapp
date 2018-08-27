@@ -1,6 +1,6 @@
 module.exports = function (pool) {
-  var nameMap = {};
-  let greetedNames = [];
+  // var nameMap = {};
+  // let greetedNames = [];
   var checkUsersSQL = '';
   //Everytime a namae is detacted the count
   // if (initialValue) {
@@ -57,22 +57,28 @@ module.exports = function (pool) {
   //   return greetedNames.filter(element => element.enteredName == user);
   // };
   ////////////////////////END TO CHECK IF THE USER EXIST////////////////////////////
-  var getEnteredNameCount = async function (counter) {
-    await pool.query('select count(*) from users where user_count=$1', [counter]);
+  var getGreetedNames = async function () {
+    //define a varible to store a query to count users in the table
+    let countUsersSQL = await pool.query('select * from users');
+    return countUsersSQL.rowCount;
   };
-  // var map = function () {
-  //   return nameMap;
-  // };
-  // let getGreetedNames = function () {
-  //   return greetedNames;
-  // };
+  let returnGreetedNames = async function () {
+    let greetedNamesSQL = await pool.query('select user_name from users');
+    return greetedNamesSQL.rows;
+  };
+  let getNameCounter = async function () {
+    
+    return nameMap;
+  };
   // var resetData = function () {
   //   return nameMap == {};
   // };
   return {
-    // getGreetedNames,
+    getGreetedNames,
     setEnteredName,
-    getEnteredNameCount,
+    returnGreetedNames,
+    getNameCounter
+     // NameCount,
     // filterNames,
     // resetData,
     // map
