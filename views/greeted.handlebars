@@ -1,5 +1,9 @@
 <div class="container">
     <div class="row">
+        <div class="home">
+            <h6><i class="far fa-hand-point-left"></i>PREVIOUS PAGE</h6>
+        </div>
+        <br>
         <h5 style="border-bottom: 1px solid; text-align:center">NUMBER OF USERS WHO HAVE BEEN GREETED</h5>
 
         <h6 style="text-align: center">DISPLAY the number of people who have been greeted</h6>
@@ -8,9 +12,9 @@
             <ul>
                 {{#each user_name}}
                 <li><a href="/counter/{{user_name}}" style="font-size: 20px;">{{user_name}}</a> has been greeted.</li>
-                {{!-- <li><a href="/counter/:users">{{@key}}</a> has been greeted.</li> --}}
-                {{!-- @key is used to print every property inside an Object --}}
-                {{/each}}
+                {{!--
+                <li><a href="/counter/:users">{{@key}}</a> has been greeted.</li> --}} {{!-- @key is used to print every property
+                inside an Object --}} {{/each}}
             </ul>
         </div>
     </div>

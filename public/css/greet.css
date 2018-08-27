@@ -1,10 +1,5 @@
-/* html,body{
-  padding: 0;
-  margin: 0;
-  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-} */
-
 /* Styling the content section */
+
 .header-section {
   position: relative;
   height: 100px;
@@ -12,19 +7,36 @@
   background-color: #154360;
   box-sizing: border-box;
 }
+
 .validation {
   color: red;
 }
+
 .language {
   color: red;
 }
+
 .header-section h3 {
   padding-top: 6px;
   color: #d4ac0d;
 }
+
 .header-section i {
   font-size: 28px;
   color: #d4ac0d;
+}
+
+.header-section a {
+  color: #ABB2B9;
+  margin-left: 5px;
+  text-decoration: none;
+}
+
+.header-section a:hover {
+  color: #F9E79F;
+  transition-duration: 300ms;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
 }
 
 .main-section {
@@ -49,11 +61,14 @@
   padding: 1em;
   margin-top: 40px;
 }
-.greetMe, .reset {
+
+.greetMe,
+.reset {
   margin-left: 30%;
 }
+
 .displaying {
-  margin-top:30px;
+  margin-top: 30px;
   font-size: 20px;
   font-weight: 300;
   border-bottom-left-radius: 5px;
@@ -63,14 +78,74 @@
   color: #d4ac0d;
   height: 30px;
 }
+
+.fa-users {
+  margin-left: 5px;
+  font-size: 4px;
+  float: right;
+}
+
+.fa-users:hover {
+  color: #F9E79F;
+  cursor: pointer;
+  transition-duration: 300ms;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
+}
+
+/* STYLING COUNTER.HANDLEBARS PAGE  */
+
+.home {
+  border-bottom: 1px solid #EAECEE;
+  height: 50px;
+  /* padding: 10px; */
+  box-shadow: 5px 10px 18px #D5D8DC;
+}
+
+.home h6 {
+  color: #154360;
+  float: right;
+  padding-right: 20px;
+  padding-left: 30px;
+  padding-top: 20px;
+}
+
+.home .fa-home {
+  font-size: 16px;
+  color: #d4ac0d;
+}
+
+.fa-home:hover {
+  cursor: pointer;
+  font-size: 20px;
+  transition-duration: 300ms;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
+}
+
+.fa-hand-point-left {
+  font-size: 16px;
+  color: #d4ac0d;
+}
+
+.fa-hand-point-left:hover {
+  cursor: pointer;
+  font-size: 20px;
+  transition-duration: 300ms;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
+}
+
 /*Add media queries for Buttons*/
-@media(max-width: 550px)  {
+
+@media(max-width: 550px) {
   .buttons {
     height: 100px;
     text-align: center;
     padding-left: 80px;
   }
-  .greetMe, .reset {
+  .greetMe,
+  .reset {
     margin-left: 0%;
   }
 }
