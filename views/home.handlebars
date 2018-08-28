@@ -63,7 +63,10 @@
       </form> END FORM --}}
       <div class="row">
         <div class="twelve columns displaying ">
-          <span class="displays">{{display}}</span>
+          {{#if messages.error}}
+          <span class="displays"> {{messages.error}} </span>
+           {{/if}}
+           <div class="display"> {{display}} </div>
         </div>
       </div>
       </section>

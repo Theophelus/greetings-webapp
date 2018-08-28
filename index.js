@@ -54,7 +54,9 @@ app.get('/', async (req, res, next) => {
     try {
         let addCountSQL = await pool.query('select * from users');
         let counts = addCountSQL.rowCount;
-        res.render('home', { counts });
+        res.render('home', {
+            counts
+        });
     } catch (error) {
         next(error.stack);
     }
@@ -62,10 +64,19 @@ app.get('/', async (req, res, next) => {
 //define a POST route handler to handle sumbitted info in the form
 app.post('/greetings', async (req, res, next) => {
     try {
+        //define two variables to store values from body-parsers
+        let enteredNames = req.body.nameInput;
+        let languages = req.body.whichLanguage;
+        //Check if both inputs are empty if so return error messages
+        if (enteredNames === null || enteredNames == '') {
+            req.flash('error', 'Please enter a NAME in the text field..!');
+        } else if (languages == null || languages == '') {
+            req.flash('error', 'Please select one of the languages in one of the radio buttons..!');
+        } 
         //define an object with key value pair to store inputs and render that data to home
         res.render('home', {
-            display: await greets.setEnteredName(req.body.whichLanguage, req.body.nameInput),
-            counts: await greets.getGreetedNames()
+            display: await greets.setEnteredName(languages, enteredNames),
+                counts: await greets.getGreetedNames()
         });
     } catch (error) {
         next(error.stack);
@@ -94,7 +105,6 @@ app.get('/counter/:user_name', async (req, res, next) => {
 app.get('/delete', async (req, res, next) => {
     try {
         res.render('home', await greets.resetData());
-
     } catch (error) {
         next(error.stack);
     }
