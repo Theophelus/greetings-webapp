@@ -69,7 +69,7 @@ module.exports = function (pool) {
   };
   let resetData = async function(){
     let deleteSQL = await pool.query('delete from users');
-    return deleteSQL.rows;
+    return deleteSQL.rows[0];
   }
   return {
     getGreetedNames,
