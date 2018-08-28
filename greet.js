@@ -67,22 +67,16 @@ module.exports = function (pool) {
     let namesCountedSQL = await pool.query('select user_name, user_count from users where user_name = $1', [users]);
     return namesCountedSQL.rows[0];
   };
+  let resetData = async function(){
+    let deleteSQL = await pool.query('delete from users');
+    return deleteSQL.rows;
+  }
   return {
     getGreetedNames,
     setEnteredName,
     returnGreetedNames,
-    getNameCounter
-     // NameCount,
-    // filterNames,
-    // resetData,
-
-
-
-
-
-
-
-    // map
+    getNameCounter,
+    resetData
   };
 };
 

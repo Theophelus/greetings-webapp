@@ -75,7 +75,15 @@ app.get('/counter/:user_name', async (req, res, next) => {
         next(error.stack);
     }
 });
-
+//define a POST route to delete all users inside DB
+app.post('/delete', async (req,res,next) =>{
+try {
+    res.render('home', greets.resetData());
+    
+} catch (error) {
+    next(error.stack);
+}
+});
 //define a GET route to render HOME PAGE
 app.get('/count_home', (req, res, next) => {
     try {
