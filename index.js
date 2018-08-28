@@ -3,6 +3,9 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const Greetings = require('./greet');
 const bodyParser = require('body-parser');
+const flash = require('express-flash');
+const session = require('express-session');
+
 // const session = require('express-session');
 const pg = require("pg");
 const Pool = pg.Pool;
@@ -10,8 +13,14 @@ const Pool = pg.Pool;
 //define instances
 let app = express();
 
-// should we use a SSL connection
-// let useSSL = false;
+// initialise session middleware - flash-express depends on it
+app.use(session({
+    secret: "<add a secret string here>",
+    resave: false,
+    saveUninitialized: true
+}));
+// initialise the flash middleware
+app.use(flash());
 
 let local = process.env.LOCAL || false;
 if (process.env.DATABASE_URL && !local) {
@@ -41,8 +50,14 @@ app.use(bodyParser.json());
 //configure public for=lder for static files
 app.use(express.static('public'));
 //define a GET roiute handler to render home
-app.get('/', (req, res) => {
-    res.render('home');
+app.get('/', async (req, res, next) => {
+    try {
+        let addCountSQL = await pool.query('select * from users');
+        let counts = addCountSQL.rowCount;
+        res.render('home', { counts });
+    } catch (error) {
+        next(error.stack);
+    }
 });
 //define a POST route handler to handle sumbitted info in the form
 app.post('/greetings', async (req, res, next) => {
@@ -50,7 +65,7 @@ app.post('/greetings', async (req, res, next) => {
         //define an object with key value pair to store inputs and render that data to home
         res.render('home', {
             display: await greets.setEnteredName(req.body.whichLanguage, req.body.nameInput),
-            counter: await greets.getGreetedNames()
+            counts: await greets.getGreetedNames()
         });
     } catch (error) {
         next(error.stack);
@@ -76,13 +91,13 @@ app.get('/counter/:user_name', async (req, res, next) => {
     }
 });
 //define a POST route to delete all users inside DB
-app.get('/delete', async (req,res,next) =>{
-try {
-    res.render('home',await greets.resetData());
-    
-} catch (error) {
-    next(error.stack);
-}
+app.get('/delete', async (req, res, next) => {
+    try {
+        res.render('home', await greets.resetData());
+
+    } catch (error) {
+        next(error.stack);
+    }
 });
 //define a GET route to render HOME PAGE
 app.get('/count_home', (req, res, next) => {

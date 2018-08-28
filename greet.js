@@ -1,11 +1,9 @@
 module.exports = function (pool) {
-  // var nameMap = {};
-  // let greetedNames = [];
   var checkUsersSQL = '';
   //Everytime a namae is detacted the count
-  // if (initialValue) {
-  //   nameMap = initialValue;
-  // }
+  if (pool) {
+    checkUsersSQL = pool;
+  }
   ///////////////////CHECK IF USER EXISTS IF NOT ADD////////////////////////////
   //when the greet button is pressed check if this user was already greeted before
   //by looking if the userName exists in namesGreeted if not increment this counter and update the screen
