@@ -137,7 +137,9 @@
 }
 
 /*Add media queries for Buttons*/
-
+.error {
+  color:#D98880;
+}
 @media(max-width: 550px) {
   .buttons {
     height: 100px;

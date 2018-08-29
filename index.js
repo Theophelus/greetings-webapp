@@ -78,13 +78,7 @@ app.post('/greetings', async (req, res, next) => {
                 await greets.getGreetedNames();
             }
         }
-
         res.redirect('/');
-        // else if ( languages == undefined) {
-        //     req.flash('error', 'Please select one of the languages in one of the radio buttons..!');
-        //     // return false;
-        // }
-        //define an object with key value pair to store inputs and render that data to home
     } catch (error) {
         next(error.stack);
     }
