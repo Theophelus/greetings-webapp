@@ -1,3 +1,6 @@
+const assert = require('assert');
+
+
 describe('greeting widget', function(){
   it('should return English and the name', function(){
     var newGreetings = greetings();

@@ -68,16 +68,23 @@ app.post('/greetings', async (req, res, next) => {
         let enteredNames = req.body.nameInput;
         let languages = req.body.whichLanguage;
         //Check if both inputs are empty if so return error messages
-        if (enteredNames === null || enteredNames == '') {
+        if (enteredNames == null || enteredNames == '') {
             req.flash('error', 'Please enter a NAME in the text field..!');
-        } else if (languages == null || languages == '') {
-            req.flash('error', 'Please select one of the languages in one of the radio buttons..!');
-        } 
+        } else {
+            if (languages == undefined) {
+                req.flash('error', 'Please select one of the languages in one of the radio buttons..!');
+            } else {
+                await greets.setEnteredName(languages, enteredNames);
+                await greets.getGreetedNames();
+            }
+        }
+
+        res.redirect('/');
+        // else if ( languages == undefined) {
+        //     req.flash('error', 'Please select one of the languages in one of the radio buttons..!');
+        //     // return false;
+        // }
         //define an object with key value pair to store inputs and render that data to home
-        res.render('home', {
-            display: await greets.setEnteredName(languages, enteredNames),
-                counts: await greets.getGreetedNames()
-        });
     } catch (error) {
         next(error.stack);
     }
