@@ -1,4 +1,5 @@
 const assert = require('assert');
+const newGreetings = require('./greet-test');
 
 
 describe('greeting widget', function(){

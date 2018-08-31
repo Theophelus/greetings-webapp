@@ -52,11 +52,20 @@ app.use(express.static('public'));
 //define a GET roiute handler to render home
 app.get('/', async (req, res, next) => {
     try {
-        let addCountSQL = await pool.query('select * from users');
-        let counts = addCountSQL.rowCount;
+        // let addCountSQL = await pool.query('select * from users');
+        // let counts = addCountSQL.rowCount;
         res.render('home', {
-            counts
+            counts: await greets.getGreetedNames()
         });
+    } catch (error) {
+        next(error.stack);
+    }
+});
+//define a POST route to delete all users inside DB
+app.get('/delete', async (req, res, next) => {
+    try {
+        await greets.resetData()
+        res.redirect('/');
     } catch (error) {
         next(error.stack);
     }
@@ -67,18 +76,20 @@ app.post('/greetings', async (req, res, next) => {
         //define two variables to store values from body-parsers
         let enteredNames = req.body.nameInput;
         let languages = req.body.whichLanguage;
-        //Check if both inputs are empty if so return error messages
-        if (enteredNames == null || enteredNames == '') {
+        if (!enteredNames || enteredNames === '') {
             req.flash('error', 'Please enter a NAME in the text field..!');
-        } else {
-            if (languages == undefined) {
-                req.flash('error', 'Please select one of the languages in one of the radio buttons..!');
-            } else {
-                await greets.setEnteredName(languages, enteredNames);
-                await greets.getGreetedNames();
-            }
+        } else
+        if (!languages) {
+            req.flash('error', 'Please select one of the languages in the radio buttons..!');
+            return res.redirect('/');
         }
-        res.redirect('/');
+
+        let display = await greets.setEnteredName(languages, enteredNames);
+        let counts = await greets.getGreetedNames();
+        res.render('home', {
+            display,
+            counts
+        });
     } catch (error) {
         next(error.stack);
     }
@@ -98,14 +109,6 @@ app.get('/counter/:user_name', async (req, res, next) => {
     let user = req.params.user_name;
     try {
         res.render('counter', await greets.getNameCounter(user));
-    } catch (error) {
-        next(error.stack);
-    }
-});
-//define a POST route to delete all users inside DB
-app.get('/delete', async (req, res, next) => {
-    try {
-        res.render('home', await greets.resetData());
     } catch (error) {
         next(error.stack);
     }
