@@ -1,6 +1,14 @@
 const assert = require('assert');
 const newGreetings = require('./greet-test');
+const pg = require("pg");
+const Pool = pg.Pool;
 
+//define a connection string to be able to connect to the database.
+const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/greetings';
+
+const pool = new Pool({
+    connectionString
+});
 
 describe('greeting widget', function(){
   it('should return English and the name', function(){
