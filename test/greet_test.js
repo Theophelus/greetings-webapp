@@ -21,56 +21,62 @@ describe('greeting widget', () => {
   });
   it('should pass the db test', async () => {});
   it('should return English and the name', async () => {
-    // var newGreet = greetings();
     assert.equal('Hello, Anele', await newGreet.setEnteredName('English', 'Anele'));
   });
   it('should return IsiXhosa and the name', async () => {
     assert.equal('Molo, Andrew', await newGreet.setEnteredName('IsiXhosa', 'Andrew'));
   });
   it('should return Afrikaans and the name', async () => {
-    // var newGreet = greetings();
     assert.equal('Goeie Dag, Nella', await newGreet.setEnteredName('Afrikaans', 'Nella'));
   });
   it('should be able to count two different names', async () => {
-    //   var newGreet = greetings();
-    //   newGreet.setEnteredName('English', 'Anele');
-    //   newGreet.setEnteredName('Afrikaan', 'Zintle');
-    // assert.deepEqual(2, newGreet.getEnteredNameCount());
+    await newGreet.setEnteredName('English', 'Anele');
+    await newGreet.setEnteredName('Afrikaan', 'Zintle');
+    assert.strictEqual(2, await newGreet.getGreetedNames());
   });
   it('counter should not increase if a user is greeted more than once ', async () => {
-    // var newGreet = greetings();
-    // newGreet.setEnteredName('English', 'Anele');
-    // newGreet.setEnteredName('English', 'Anele');
-    // newGreet.setEnteredName('Afrikaan', 'Zintle');
-    // assert.deepEqual(2, newGreet.getEnteredNameCount());
+    await newGreet.setEnteredName('English', 'Anele');
+    await newGreet.setEnteredName('English', 'Anele');
+    await newGreet.setEnteredName('Afrikaan', 'Zintle');
+    assert.deepEqual(2, await newGreet.getGreetedNames());
   });
   it('should count the number of greet in IsiXhosa if name entered', async () => {
-    // var newGreet = greetings();
-    // newGreet.setEnteredName('IsiXhosa, Anele');
-    // assert.deepEqual(1, newGreet.getEnteredNameCount());
+    await newGreet.setEnteredName('IsiXhosa', 'Anele');
+    assert.deepEqual(1, await newGreet.getGreetedNames());
   });
   it('should count the number of names regardless language selected', async () => {
-    // var newGreet = greetings();
-    // newGreet.setEnteredName('English', 'Anele');
-    // newGreet.setEnteredName('IsiXhosa', 'Andrew');
-    // newGreet.setEnteredName('Afrikaan', 'Zintle');
-    // assert.deepEqual(3, newGreet.getEnteredNameCount());
+    await newGreet.setEnteredName('English', 'Anele');
+    await newGreet.setEnteredName('IsiXhosa', 'Andrew');
+    await newGreet.setEnteredName('Afrikaan', 'Zintle');
+
+    assert.deepEqual(3, await newGreet.getGreetedNames());
   });
-  it('should count names in the map', async () => {
-    // var newGreet = greetings();
-    // newGreet.setEnteredName('IsiXhosa', 'Anele');
-    // newGreet.setEnteredName('English', 'Ace');
-    // assert.deepEqual(newGreet.map(),{Anele: 0, Ace: 0
-    // });
+  it('should count names in the user tables in a DB', async () => {
+    await newGreet.setEnteredName('English', 'Anele');
+    await newGreet.setEnteredName('IsiXhosa', 'Andrew');
+    await newGreet.setEnteredName('Afrikaan', 'Zintle');
+    assert.deepEqual([{
+      user_name: 'Anele'
+    }, {
+      user_name: 'Andrew'
+    }, {
+      user_name: 'Zintle'
+    }], await newGreet.returnGreetedNames());
   });
-  it('should not add name that already exists in the map', async () => {
-    // var newGreet = greetings();
-    // newGreet.setEnteredName('IsiXhosa', 'Anele');
-    // newGreet.setEnteredName('English', 'Ace');
-    // newGreet.setEnteredName('English', 'Ace');
-    // assert.deepEqual(newGreet.map(),{Anele: 0, Ace: 0
-    // });
+  it('should not add name that already exists in the user table DB', async () => {
+    await newGreet.setEnteredName('English', 'Anele');
+    await newGreet.setEnteredName('English', 'Anele');
+    await newGreet.setEnteredName('IsiXhosa', 'Andrew');
+    await newGreet.setEnteredName('Afrikaan', 'Zintle');
+    assert.deepEqual([{
+      user_name: 'Anele'
+    }, {
+      user_name: 'Andrew'
+    }, {
+      user_name: 'Zintle'
+    }], await newGreet.returnGreetedNames());
   });
+  // });
   after(() => {
     pool.end();
   })

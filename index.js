@@ -52,8 +52,6 @@ app.use(express.static('public'));
 //define a GET roiute handler to render home
 app.get('/', async (req, res, next) => {
     try {
-        // let addCountSQL = await pool.query('select * from users');
-        // let counts = addCountSQL.rowCount;
         res.render('home', {
             counts: await greets.getGreetedNames()
         });
