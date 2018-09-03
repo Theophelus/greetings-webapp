@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Greet = require('greet');
+const Greet = require('../greet');
 const pg = require("pg");
 const Pool = pg.Pool;
 
@@ -8,29 +8,23 @@ const Pool = pg.Pool;
 const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/greetings';
 
 const pool = new Pool({
-    connectionString
+  connectionString
 });
 let newGreet = Greet(pool);
-describe('greeting widget', async function(){
-  beforeEach(async function(){
+
+describe('greeting widget', () => {
+  / the Factory Function is called newGreet
+    let newGreet = Greet(pool)
+  beforeEach(async () => {
     // clean the tables before each test run
     await pool.query("delete from users;");
-});
-it('should pass the db test', async function(){
-        
-  // the Factory Function is called CategoryService
-  await newGreet.add({
-      description : "Diary"
   });
-
-  let categories = await newGreet.all();
-  assert.equal(1, newGreet.length);
-
-});
-  // it('should return English and the name', function(){
-  //   var newGreetings = greetings();
-  //   assert.equal('Hello, Anele', newGreetings.setEnteredName('English','Anele'));
-  // });
+  it('should pass the db test', async () => {
+  });
+  it('should return English and the name', () => {
+    // var newGreetings = greetings();
+    assert.equal('Hello, Anele', newGreet.setEnteredName('English', 'Anele'));
+  });
   // it('should return IsiXhosa and the name', function(){
   //   var newGreetings = greetings();
   //   assert.equal('Molo, Andrew',newGreetings.setEnteredName('IsiXhosa','Andrew'));
@@ -79,7 +73,7 @@ it('should pass the db test', async function(){
   //   assert.deepEqual(newGreetings.map(),{Anele: 0, Ace: 0
   //   });
   // });
-  after(function(){
+  after(() => {
     pool.end();
-})
+  })
 });
