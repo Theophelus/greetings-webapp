@@ -10,7 +10,7 @@ node_js:
 before_script:
 
   - psql -c 'create database  greetings;' -U postgres
-  - psql -U postgres -d users -a -f table.sql
+  - psql -U postgres -d greetings -a -f table.sql
 
 addons:
     apt:
