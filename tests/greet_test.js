@@ -13,66 +13,64 @@ const pool = new Pool({
 let newGreet = Greet(pool);
 
 describe('greeting widget', () => {
-  / the Factory Function is called newGreet
-    let newGreet = Greet(pool)
+  // the Factory Function is called newGreet
+  let newGreet = Greet(pool)
   beforeEach(async () => {
     // clean the tables before each test run
     await pool.query("delete from users;");
   });
-  it('should pass the db test', async () => {
+  it('should pass the db test', async () => {});
+  it('should return English and the name', async () => {
+    // var newGreet = greetings();
+    assert.equal('Hello, Anele', await newGreet.setEnteredName('English', 'Anele'));
   });
-  it('should return English and the name', () => {
-    // var newGreetings = greetings();
-    assert.equal('Hello, Anele', newGreet.setEnteredName('English', 'Anele'));
+  it('should return IsiXhosa and the name', async () => {
+    assert.equal('Molo, Andrew', await newGreet.setEnteredName('IsiXhosa', 'Andrew'));
   });
-  // it('should return IsiXhosa and the name', function(){
-  //   var newGreetings = greetings();
-  //   assert.equal('Molo, Andrew',newGreetings.setEnteredName('IsiXhosa','Andrew'));
-  // });
-  // it('should return Afrikaans and the name', function(){
-  //   var newGreetings = greetings();
-  //   assert.equal('Goeie Dag, Nella', newGreetings.setEnteredName('Afrikaans','Nella'));
-  // });
-  // it('should be able to count two different names', function(){
-  //   var newGreetings = greetings();
-  //   newGreetings.setEnteredName('English', 'Anele');
-  //   newGreetings.setEnteredName('Afrikaan', 'Zintle');
-  //   assert.deepEqual(2, newGreetings.getEnteredNameCount());
-  // });
-  // it('counter should not increase if a user is greeted more than once ', function(){
-  //   var newGreetings = greetings();
-  //   newGreetings.setEnteredName('English', 'Anele');
-  //   newGreetings.setEnteredName('English', 'Anele');
-  //   newGreetings.setEnteredName('Afrikaan', 'Zintle');
-  //   assert.deepEqual(2, newGreetings.getEnteredNameCount());
-  // });
-  // it('should count the number of greet in IsiXhosa if name entered', function(){
-  //   var newGreetings = greetings();
-  //   newGreetings.setEnteredName('IsiXhosa, Anele');
-  //   assert.deepEqual(1, newGreetings.getEnteredNameCount());
-  // });
-  // it('should count the number of names regardless language selected', function(){
-  //   var newGreetings = greetings();
-  //   newGreetings.setEnteredName('English', 'Anele');
-  //   newGreetings.setEnteredName('IsiXhosa', 'Andrew');
-  //   newGreetings.setEnteredName('Afrikaan', 'Zintle');
-  //   assert.deepEqual(3, newGreetings.getEnteredNameCount());
-  // });
-  // it('should count names in the map', function(){
-  //   var newGreetings = greetings();
-  //   newGreetings.setEnteredName('IsiXhosa', 'Anele');
-  //   newGreetings.setEnteredName('English', 'Ace');
-  //   assert.deepEqual(newGreetings.map(),{Anele: 0, Ace: 0
-  //   });
-  // });
-  // it('should not add name that already exists in the map', function(){
-  //   var newGreetings = greetings();
-  //   newGreetings.setEnteredName('IsiXhosa', 'Anele');
-  //   newGreetings.setEnteredName('English', 'Ace');
-  //   newGreetings.setEnteredName('English', 'Ace');
-  //   assert.deepEqual(newGreetings.map(),{Anele: 0, Ace: 0
-  //   });
-  // });
+  it('should return Afrikaans and the name', async () => {
+    // var newGreet = greetings();
+    assert.equal('Goeie Dag, Nella', await newGreet.setEnteredName('Afrikaans', 'Nella'));
+  });
+  it('should be able to count two different names', async () => {
+    //   var newGreet = greetings();
+    //   newGreet.setEnteredName('English', 'Anele');
+    //   newGreet.setEnteredName('Afrikaan', 'Zintle');
+    // assert.deepEqual(2, newGreet.getEnteredNameCount());
+  });
+  it('counter should not increase if a user is greeted more than once ', async () => {
+    // var newGreet = greetings();
+    // newGreet.setEnteredName('English', 'Anele');
+    // newGreet.setEnteredName('English', 'Anele');
+    // newGreet.setEnteredName('Afrikaan', 'Zintle');
+    // assert.deepEqual(2, newGreet.getEnteredNameCount());
+  });
+  it('should count the number of greet in IsiXhosa if name entered', async () => {
+    // var newGreet = greetings();
+    // newGreet.setEnteredName('IsiXhosa, Anele');
+    // assert.deepEqual(1, newGreet.getEnteredNameCount());
+  });
+  it('should count the number of names regardless language selected', async () => {
+    // var newGreet = greetings();
+    // newGreet.setEnteredName('English', 'Anele');
+    // newGreet.setEnteredName('IsiXhosa', 'Andrew');
+    // newGreet.setEnteredName('Afrikaan', 'Zintle');
+    // assert.deepEqual(3, newGreet.getEnteredNameCount());
+  });
+  it('should count names in the map', async () => {
+    // var newGreet = greetings();
+    // newGreet.setEnteredName('IsiXhosa', 'Anele');
+    // newGreet.setEnteredName('English', 'Ace');
+    // assert.deepEqual(newGreet.map(),{Anele: 0, Ace: 0
+    // });
+  });
+  it('should not add name that already exists in the map', async () => {
+    // var newGreet = greetings();
+    // newGreet.setEnteredName('IsiXhosa', 'Anele');
+    // newGreet.setEnteredName('English', 'Ace');
+    // newGreet.setEnteredName('English', 'Ace');
+    // assert.deepEqual(newGreet.map(),{Anele: 0, Ace: 0
+    // });
+  });
   after(() => {
     pool.end();
   })
